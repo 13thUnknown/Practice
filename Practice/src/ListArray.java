@@ -86,7 +86,7 @@ public class ListArray
 	public boolean add(int AmountPeople,long ChatID)
 	{
 		List pointer=Begin;
-		if (this.userInQueue(ChatID)==-1)
+		if (this.userInQueue(ChatID)==-1 && this.userInProcessor(ChatID)==-1)
 		{
 			while (pointer != null) 
 			{
@@ -254,6 +254,19 @@ public class ListArray
 		while (pointer!=null)
 		{
 			if (pointer.userInQueue(ChatID)==true)
+			{
+				return pointer.getListNum();
+			}
+			pointer=pointer.getNext();
+		}
+		return -1;
+	}
+	public int userInProcessor(long ChatID)
+	{
+		List pointer=Begin;
+		while (pointer!=null)
+		{
+			if (pointer.IsInProcessor(ChatID)==true)
 			{
 				return pointer.getListNum();
 			}

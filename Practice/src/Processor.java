@@ -74,6 +74,14 @@ public class Processor
 		}
 	}
 	
+	public boolean IsInProcessor(long ChatID)
+	{
+		if (this.ChatID==ChatID)
+			return true;
+		else
+			return false;
+	}
+	
 
 	
 	

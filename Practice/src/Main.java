@@ -17,6 +17,8 @@
  * .outQueue(int numberList, long ChatID) Принимает ChatID и вызвращает номер в очереди. 
  * .accessStatus(int numberList) Возращает значение параметра enable данного стола.
  * .accessSwitch(int numberList) Меняет значение параметра enable на противоположное.
+ * .userInQueue(long ChatID) Проверяет на наличие юзера в очереди и выводит номер стола, в очереди которого он стоит. Вернёт -1 если не стоит в очереди.
+ * .userInProcessor(long ChatID) Проверяет на наличие юзера в прокцессоре и выводит номер стола, в за которым он сейчас сидит. Вернёт -1 если не сидит ни за каким столом.
  * TODO
  * -Перевод кол-ва мест в столе в String
  * -Информация о столе
@@ -33,6 +35,7 @@ public class Main {
 		AltherThread NewThread=new AltherThread(Queue, 1000);
 		NewThread.start();
 		Queue.addList(6);
+		Queue.addList(5);
 		for (int i=0;i<10;i++)
 			Queue.add(1, 123);
 		

@@ -233,5 +233,8 @@ public class List
 	{
 		return this;
 	}
-	
+	public boolean IsInProcessor(long ChatID)
+	{
+		return Worker.IsInProcessor(ChatID);
+	}
 }
