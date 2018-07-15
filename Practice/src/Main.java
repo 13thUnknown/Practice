@@ -23,6 +23,9 @@
  * .getMaxTableSize() Возвращает максимально доступное чисто мест.
  * .returnChatID(int Queue,int ListNum) Принимает порядкый номер и возвращает ChatID. Нумерация начинается с 1.
  * .returnNumber(int Queue,int ListNum) Принимает порядкый номер и возвращает фиксированный номер. Нумерация начинается с 1.
+ * .getTableSize(int ListNum) На вход идёт номер стола. Возвращает размер стола.
+ * .getWorkerChatID(int ListNum) На вход идёт номер стола. Возвращает ChatID из процессора.
+ * .getWorkerNumber(int ListNum) На вход идёт номер стола. Возвращает фиксированный номер из процессора.
  * 
  * TODO
  * -Перевод кол-ва мест в столе в String

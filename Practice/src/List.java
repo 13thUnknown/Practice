@@ -183,7 +183,9 @@ public class List
 	}
 	public int getQueue()
 	{
-		return End.getQueue();
+		if (End!=null)
+			return End.getQueue();
+		else return -1;
 	}
 	
 	public boolean userInQueue(long ChatID)
@@ -269,5 +271,13 @@ public class List
 			pointer=pointer.getNext();
 		}
 		return -1;
+	}
+	public int getWorkerNumber()
+	{
+		return Worker.getNumber();
+	}
+	public long getWorkerChatID()
+	{
+		return Worker.getChatID();
 	}
 }

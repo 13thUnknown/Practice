@@ -346,4 +346,45 @@ public class ListArray
 		}
 		return -1;
 	}
+	public int getTableSize(int ListNum)
+	{
+		List pointer=Begin;
+		while (pointer!=null)
+		{
+			if (pointer.getListNum()==ListNum)
+			{
+				return pointer.getTableSize();
+			}
+			pointer=pointer.getNext();
+		}
+		return -1;
+	}
+	
+	public int getWorkerNumber(int ListNum)
+	{
+		List pointer=Begin;
+		while (pointer!=null)
+		{
+			if (pointer.getListNum()==ListNum)
+			{
+				return pointer.getWorkerNumber();
+			}
+			pointer=pointer.getNext();
+		}
+		return -1;
+	}
+	
+	public long getWorkerChatID(int ListNum)
+	{
+		List pointer=Begin;
+		while (pointer!=null)
+		{
+			if (pointer.getListNum()==ListNum)
+			{
+				return pointer.getWorkerChatID();
+			}
+			pointer=pointer.getNext();
+		}
+		return -1;
+	}
 }

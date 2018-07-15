@@ -37,6 +37,12 @@ public class Processor
 		
 	}
 	
+	public long getChatID() {
+		return ChatID;
+	}
+	public void setChatID(long chatID) {
+		ChatID = chatID;
+	}
 	public int getTimer() {
 		return timer;
 	}
