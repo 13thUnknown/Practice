@@ -306,4 +306,44 @@ public class ListArray
 		}
 		return max;
 	}
+	
+	public long returnChatID(int Queue,int ListNum)
+	{
+		try {
+			AltherThread.sleep(500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		List pointer=Begin;
+		while (pointer!=null)
+		{
+			if (pointer.getListNum()==ListNum)
+			{
+				return pointer.returnChatID(Queue);
+			}
+			pointer=pointer.getNext();
+		}
+		return -1;
+	}
+	
+	public int returnNumber(int Queue,int ListNum)
+	{
+		try {
+			AltherThread.sleep(500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		List pointer=Begin;
+		while (pointer!=null)
+		{
+			if (pointer.getListNum()==ListNum)
+			{
+				return pointer.returnNumber(Queue);
+			}
+			pointer=pointer.getNext();
+		}
+		return -1;
+	}
 }

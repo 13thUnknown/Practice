@@ -19,12 +19,16 @@
  * .accessSwitch(int numberList) Меняет значение параметра enable на противоположное.
  * .userInQueue(long ChatID) Проверяет на наличие юзера в очереди и выводит номер стола, в очереди которого он стоит. Вернёт -1 если не стоит в очереди.
  * .userInProcessor(long ChatID) Проверяет на наличие юзера в прокцессоре и выводит номер стола, в за которым он сейчас сидит. Вернёт -1 если не сидит ни за каким столом.
- * .getQueue(int numberList) Приномает номер стола и возвращает кол-во людей в очереди
+ * .getQueue(int numberList) Принимает номер стола и возвращает кол-во людей в очереди
  * .getMaxTableSize() Возвращает максимально доступное чисто мест.
+ * .returnChatID(int Queue,int ListNum) Принимает порядкый номер и возвращает ChatID. Нумерация начинается с 1.
+ * .returnNumber(int Queue,int ListNum) Принимает порядкый номер и возвращает фиксированный номер. Нумерация начинается с 1.
+ * 
  * TODO
  * -Перевод кол-ва мест в столе в String
  * -Информация о столе
  * -Возвращает кол-во мест стола по номеру
+ * -Возвращение ячейки по номеру в очереди
  * 
  * TODO 
  * -Перевод номера стола в string
@@ -33,7 +37,7 @@ public class Main {
 
 	public static void main(String[] args) throws InterruptedException 
 	{
-		int Timer=2000;
+		int Timer=30000;
 		ListArray Queue=new ListArray(Timer);
 		AltherThread NewThread=new AltherThread(Queue, 1000);
 		NewThread.start();

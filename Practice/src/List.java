@@ -242,4 +242,32 @@ public class List
 	{
 		return (TableSize-AmountPeople)*5+this.getQueue();
 	}
+	
+	public long returnChatID(int Queue)
+	{
+		Info pointer=Begin;
+		while (pointer!=null)
+		{
+			if (pointer.getQueue()==Queue)
+			{
+				return pointer.getChatID();
+			}
+			pointer=pointer.getNext();
+		}
+		return -1;
+	}
+	
+	public int returnNumber(int Queue)
+	{
+		Info pointer=Begin;
+		while (pointer!=null)
+		{
+			if (pointer.getQueue()==Queue)
+			{
+				return pointer.getNumber();
+			}
+			pointer=pointer.getNext();
+		}
+		return -1;
+	}
 }
