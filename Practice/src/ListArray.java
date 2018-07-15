@@ -85,18 +85,25 @@ public class ListArray
 	}
 	public boolean add(int AmountPeople,long ChatID)
 	{
+		List PriorPointer=Begin;
 		List pointer=Begin;
+		int priority=pointer.getPriority(AmountPeople);
 		if (this.userInQueue(ChatID)==-1 && this.userInProcessor(ChatID)==-1)
 		{
 			while (pointer != null) 
 			{
 				if (pointer.getTableSize() >= AmountPeople && pointer.accessStatus()==true) 
 				{
-					pointer.add(ChatID);
-					return true;
+					if (priority>pointer.getPriority(AmountPeople))
+					{
+						priority=pointer.getPriority(AmountPeople);
+						PriorPointer=pointer;
+					}
 				}
 				pointer = pointer.getNext();
 			}
+			PriorPointer.add(ChatID);
+			return true;
 		}
 		return false;
 	}
@@ -273,5 +280,30 @@ public class ListArray
 			pointer=pointer.getNext();
 		}
 		return -1;
+	}
+	public int getQueue(int ListNum)
+	{
+		List pointer=Begin;
+		while (pointer!=null)
+		{
+			if (pointer.getListNum()==ListNum)
+			{
+				return pointer.getQueue();
+			}
+			pointer=pointer.getNext();
+		}
+		return -1;
+	}
+	public int getMaxTableSize()
+	{
+		int max=-1;
+		List pointer=Begin;
+		while (pointer!=null)
+		{
+			if(pointer.getTableSize()>max)
+				max=pointer.getTableSize();
+			pointer=pointer.getNext();
+		}
+		return max;
 	}
 }

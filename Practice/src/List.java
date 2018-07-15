@@ -181,6 +181,10 @@ public class List
 		}
 		return -1;
 	}
+	public int getQueue()
+	{
+		return End.getQueue();
+	}
 	
 	public boolean userInQueue(long ChatID)
 	{
@@ -236,5 +240,10 @@ public class List
 	public boolean IsInProcessor(long ChatID)
 	{
 		return Worker.IsInProcessor(ChatID);
+	}
+	
+	public int getPriority(int AmountPeople)
+	{
+		return (TableSize-AmountPeople)*5+this.getQueue();
 	}
 }
