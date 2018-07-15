@@ -233,10 +233,6 @@ public class List
 	public void setTableSize(int tableSize) {
 		TableSize = tableSize;
 	}
-	public List getThis()
-	{
-		return this;
-	}
 	public boolean IsInProcessor(long ChatID)
 	{
 		return Worker.IsInProcessor(ChatID);
