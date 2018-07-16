@@ -40,20 +40,22 @@ public class Main {
 
 	public static void main(String[] args) throws InterruptedException 
 	{
-		int Timer=30000;
+		int Timer=100000;
 		ListArray Queue=new ListArray(Timer);
 		AltherThread NewThread=new AltherThread(Queue, 1000);
 		NewThread.start();
-		Queue.addList(6);
-		Queue.addList(5);
+		Queue.addList(1);
+		Queue.addList(2);
 		for (int i=0;i<10;i++)
-			Queue.add(1, 123);
-		
+			Queue.add(2, 123+i);
+		Thread.sleep(1000);
 		System.out.println(Queue.outQueue(1,3));
-		while (!Queue.workerIsEmpty(1))
+		while (!Queue.workerIsEmpty(2))
 		{
+			Queue.abort(Queue.userInProcessor(123),123);
 //			AltherThread.sleep(500);
 			Queue.info(1);
+			Queue.info(2);
 			Thread.sleep(1000);
 		}
 		System.exit(0);
