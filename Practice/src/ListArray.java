@@ -435,5 +435,9 @@ public class ListArray
 	public void setBegin(Table begin) {
 		Begin = begin;
 	}
+
+	public ListArray getNext() {
+	    return this.getNext();
+    }
 	
 }

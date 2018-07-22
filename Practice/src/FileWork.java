@@ -11,21 +11,21 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
-import java.sql.Time;
-import java.util.*;
+import java.util.Iterator;
+import java.util.List;
 
 public class FileWork
 {
 
-    private Info List;
+    private ListArray List;
     private Info element;
 
-    public void WriteIntoExcel (Info ListIn) throws Exception
+    public void WriteIntoExcel (ListArray ListIn) throws Exception
     {
         Workbook book = new XSSFWorkbook();
         int n = 0;
         List = ListIn;
-        element = List;
+        element = List.getBegin().getBegin();
         while (List != null)
         {
             n++;
@@ -38,7 +38,7 @@ public class FileWork
             Cell NumList = row.createCell(1);
             NumList.setCellValue(n);
             Cell ValueList = row.createCell(2);
-            ValueList.setCellValue(List.getTableSize());
+            ValueList.setCellValue(List.getTableSize(n));
             while (element != null)
             {
                 row = sheet.createRow(numstr);
@@ -55,9 +55,9 @@ public class FileWork
         book.close();
     }
 
-    public void  ReadFromExcel () throws Exception {
+    public void  ReadFromExcel () throws Exception
+    {
         List = null;
-        element = List;
         HSSFWorkbook ExcelBook = new HSSFWorkbook(new FileInputStream("file"));  // вместо file должен быть путь к фалу
         Iterator<Sheet> sheets = ExcelBook.sheetIterator();
         while (sheets.hasNext())
@@ -68,26 +68,18 @@ public class FileWork
             HSSFCell TimeList = row.getCell(0);
             HSSFCell NumList = row.getCell(1);
             HSSFCell ValueList = row.getCell(2);
-            List = new List(Integer.getInteger(TimeList.toString(),Integer.getInteger(NumList.toString(),Integer.getInteger(ValueList.toString())));
-            element = List;
+            List.hardAddList(Integer.getInteger(TimeList.toString()),Integer.getInteger(NumList.toString()),Integer.getInteger(ValueList.toString()));
             while (rows.hasNext())
             {
                 row = (HSSFRow) rows.next();
                 HSSFCell ChatID = row.getCell(0);
                 HSSFCell Number = row.getCell(1);
                 if (ChatID != null && Number != null) {
-//                    if (element == List) {
-//                        element.setChatID(Integer.getInteger(ChatID.toString()));
-//                        element.setNumber(Integer.getInteger(Number.toString()));
-//                    }
-//                    else {
-//                        element.setNext(new Info());
-//                        element = element.getNext()
-//                    }
+                    List.hardAdd(Integer.getInteger(NumList.toString()), Long.getLong(ChatID.toString()),Integer.getInteger(Number.toString()));
                 }
-
             }
         }
         ExcelBook.close();
     }
+
 }

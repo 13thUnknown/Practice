@@ -293,4 +293,7 @@ public class Table
 	{
 		return Worker.getChatID();
 	}
+	public Info getBegin() {
+		return this.Begin;
+	}
 }
