@@ -12,7 +12,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
 import java.util.Iterator;
-import java.util.List;
 
 public class FileWork
 {
@@ -51,7 +50,7 @@ public class FileWork
             }
             List.getNext();
         }
-        book.write(new FileOutputStream(("file")));  // вместо file должен быть путь к фалу
+        book.write(new FileOutputStream("file"));  // вместо file должен быть путь к фалу
         book.close();
     }
 
@@ -80,6 +79,34 @@ public class FileWork
             }
         }
         ExcelBook.close();
+    }
+
+    public void SaveAdminData(String Login, String Password) throws Exception
+    {
+        Workbook AdminBook = new XSSFWorkbook();
+        Sheet sheet = AdminBook.createSheet("admin");
+        Row row = sheet.createRow(0);
+        Cell login = row.createCell(0);
+        login.setCellValue(Login);
+        Cell password = row.createCell(1);
+        password.setCellValue(Password);
+        AdminBook.write(new FileOutputStream("filename"));
+        AdminBook.close();
+    }
+
+    public String ReadLogin () throws Exception {
+        HSSFWorkbook AdminBook = new HSSFWorkbook(new FileInputStream("fileName"));
+        HSSFSheet sheet = AdminBook.getSheet("admin");
+        HSSFRow row = sheet.getRow(0);
+        HSSFCell Login = row.getCell(0);
+        return Login.toString();
+    }
+    public String ReadPassword () throws Exception {
+        HSSFWorkbook AdminBook = new HSSFWorkbook(new FileInputStream("fileName"));
+        HSSFSheet sheet = AdminBook.getSheet("admin");
+        HSSFRow row = sheet.getRow(0);
+        HSSFCell Password = row.getCell(1);
+        return Password.toString();
     }
 
 }
