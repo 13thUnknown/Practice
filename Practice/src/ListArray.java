@@ -85,15 +85,20 @@ public class ListArray
 	}
 	public boolean add(int AmountPeople,long ChatID)
 	{
-		List PriorPointer=Begin;
+		List PriorPointer=null;
 		List pointer=Begin;
-		int priority=pointer.getPriority(AmountPeople);
+		int priority=-1;
 		if (this.userInQueue(ChatID)==-1 && this.userInProcessor(ChatID)==-1)
 		{
 			while (pointer != null) 
 			{
 				if (pointer.getTableSize() >= AmountPeople && pointer.accessStatus()==true) 
 				{
+					if (priority==-1)
+					{
+						priority=pointer.getPriority(AmountPeople);
+						PriorPointer=pointer;
+					}
 					if (priority>pointer.getPriority(AmountPeople))
 					{
 						priority=pointer.getPriority(AmountPeople);
@@ -310,7 +315,7 @@ public class ListArray
 	public long returnChatID(int Queue,int ListNum)
 	{
 		try {
-			AltherThread.sleep(500);
+			AltherThread.sleep(50);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -330,7 +335,7 @@ public class ListArray
 	public int returnNumber(int Queue,int ListNum)
 	{
 		try {
-			AltherThread.sleep(500);
+			AltherThread.sleep(50);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

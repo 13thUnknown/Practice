@@ -242,7 +242,7 @@ public class List
 	
 	public int getPriority(int AmountPeople)
 	{
-		return (TableSize-AmountPeople)*5+this.getQueue();
+		return (TableSize-AmountPeople)*5+this.getQueue()+1;
 	}
 	
 	public long returnChatID(int Queue)
