@@ -2,8 +2,8 @@
 public class ListArray 
 {
 	private int numberList;
-	private List Begin;
-	private List End;
+	private Table Begin;
+	private Table End;
 	private int timer;
 	ListArray(int timer)
 	{
@@ -11,13 +11,12 @@ public class ListArray
 		this.Begin=null;
 		this.End=null;
 		this.timer=timer;
-		
 	}
 
 	public void addList(int tableSize)
 	{
 		numberList++;
-		List NewList=new List(timer,numberList,tableSize);
+		Table NewList=new Table(timer,numberList,tableSize);
 		if (Begin==null&&End==null)
 		{
 			Begin = NewList;
@@ -29,8 +28,21 @@ public class ListArray
 			End=End.getNext();
 		}
 	}
-	
-	public void fixList(List pointer)
+	public void hardAddList(int tableSize,int timer,int numberList)
+	{
+		Table NewList=new Table(timer,numberList,tableSize);
+		if (Begin==null&&End==null)
+		{
+			Begin = NewList;
+			End = NewList;	
+		}
+		else
+		{
+			End.setNext(NewList);
+			End=End.getNext();
+		}
+	}
+	public void fixList(Table pointer)
 	{
 		while (pointer!=null)
 		{
@@ -39,11 +51,10 @@ public class ListArray
 		}
 		
 	}
-	
 	public boolean deleteList(int ListNum)
 	{
-		List pointer=Begin;
-		List prev=Begin;
+		Table pointer=Begin;
+		Table prev=Begin;
 		numberList--;
 		if (Begin.getListNum()==ListNum)
 		{
@@ -75,11 +86,10 @@ public class ListArray
 		numberList++;
 		return false;
 	}
-	
 	public int numberList()
 	{
 		int i=0;
-		List pointer=Begin;
+		Table pointer=Begin;
 		while (pointer!=null)
 		{
 			i++;
@@ -87,11 +97,10 @@ public class ListArray
 		}
 		return i;
 	}
-
 	public boolean add(int AmountPeople,long ChatID)
 	{
-		List PriorPointer=null;
-		List pointer=Begin;
+		Table PriorPointer=null;
+		Table pointer=Begin;
 		int priority=-1;
 		if (this.userInQueue(ChatID)==-1 && this.userInProcessor(ChatID)==-1)
 		{
@@ -117,10 +126,31 @@ public class ListArray
 		}
 		return false;
 	}
-	
+	public void hardAdd(int ListNum, long ChatID, int Number)
+	{
+		Table pointer=Begin;
+		while (pointer!=null)
+		{
+			if (pointer.getListNum()==ListNum)
+			{
+				pointer.hardAdd(ChatID, Number);
+				return;
+			}
+			pointer=pointer.getNext();
+		}
+	}
+	public void hardEnd()
+	{
+		Table pointer=Begin;
+		while (pointer!=null)
+		{
+			pointer.hardEnd();
+			pointer=pointer.getNext();
+		}
+	}
 	public void out(int numberList)
 	{
-		List pointer=Begin;
+		Table pointer=Begin;
 		while (pointer!=null)
 		{
 			if (pointer.getListNum()==numberList)
@@ -134,7 +164,7 @@ public class ListArray
 	
 	public void delete(int numberList,int Number)
 	{
-		List pointer=Begin;
+		Table pointer=Begin;
 		while (pointer!=null)
 		{
 			if (pointer.getListNum()==numberList)
@@ -145,10 +175,9 @@ public class ListArray
 			pointer=pointer.getNext();
 		}
 	}
-	
 	public void delete(int numberList, long ChatID)
 	{
-		List pointer=Begin;
+		Table pointer=Begin;
 		while (pointer!=null)
 		{
 			if (pointer.getListNum()==numberList)
@@ -162,17 +191,16 @@ public class ListArray
 	
 	public void checker()
 	{
-		List pointer=Begin;
+		Table pointer=Begin;
 		while (pointer!=null)
 		{
 			pointer.checker();
 			pointer=pointer.getNext();
 		}
 	}
-	
 	public void info(int numberList)
 	{
-		List pointer=Begin;
+		Table pointer=Begin;
 		while (pointer!=null)
 		{
 			if (pointer.getListNum()==numberList)
@@ -185,7 +213,7 @@ public class ListArray
 	}
 	public boolean workerIsEmpty(int numberList)
 	{
-		List pointer=Begin;
+		Table pointer=Begin;
 		while (pointer!=null)
 		{
 			if (pointer.getListNum()==numberList)
@@ -194,13 +222,13 @@ public class ListArray
 			}
 			pointer=pointer.getNext();
 		}
-		System.out.println("Î÷åðåäü ñ äàííûì íîìåðîì íå íàéäåíà.");
+		System.out.println("������� � ������ ������� �� �������.");
 		return false;
 	}
 	
 	public void abort(int numberList)
 	{
-		List pointer=Begin;
+		Table pointer=Begin;
 		while (pointer!=null)
 		{
 			if (pointer.getListNum()==numberList)
@@ -214,7 +242,7 @@ public class ListArray
 	
 	public void abort(int numberList, long ChatID)
 	{
-		List pointer=Begin;
+		Table pointer=Begin;
 		while (pointer!=null)
 		{
 			if (pointer.getListNum()==numberList)
@@ -228,7 +256,7 @@ public class ListArray
 	
 	public int outQueue(int numberList, long ChatID)
 	{
-		List pointer=Begin;
+		Table pointer=Begin;
 		while (pointer!=null)
 		{
 			if (pointer.getListNum()==numberList)
@@ -242,7 +270,7 @@ public class ListArray
 	
 	public void accessSwitch(int numberList) 
 	{
-		List pointer=Begin;
+		Table pointer=Begin;
 		while (pointer!=null)
 		{
 			if (pointer.getListNum()==numberList)
@@ -256,7 +284,7 @@ public class ListArray
 	
 	public boolean accessStatus(int numberList)
 	{
-		List pointer=Begin;
+		Table pointer=Begin;
 		while (pointer!=null)
 		{
 			if (pointer.getListNum()==numberList)
@@ -269,7 +297,7 @@ public class ListArray
 	}
 	public int userInQueue(long ChatID)
 	{
-		List pointer=Begin;
+		Table pointer=Begin;
 		while (pointer!=null)
 		{
 			if (pointer.userInQueue(ChatID)==true)
@@ -282,7 +310,7 @@ public class ListArray
 	}
 	public int userInProcessor(long ChatID)
 	{
-		List pointer=Begin;
+		Table pointer=Begin;
 		while (pointer!=null)
 		{
 			if (pointer.IsInProcessor(ChatID)==true)
@@ -295,7 +323,7 @@ public class ListArray
 	}
 	public int getQueue(int ListNum)
 	{
-		List pointer=Begin;
+		Table pointer=Begin;
 		while (pointer!=null)
 		{
 			if (pointer.getListNum()==ListNum)
@@ -309,7 +337,7 @@ public class ListArray
 	public int getMaxTableSize()
 	{
 		int max=-1;
-		List pointer=Begin;
+		Table pointer=Begin;
 		while (pointer!=null)
 		{
 			if(pointer.getTableSize()>max)
@@ -327,7 +355,7 @@ public class ListArray
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		List pointer=Begin;
+		Table pointer=Begin;
 		while (pointer!=null)
 		{
 			if (pointer.getListNum()==ListNum)
@@ -347,7 +375,7 @@ public class ListArray
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		List pointer=Begin;
+		Table pointer=Begin;
 		while (pointer!=null)
 		{
 			if (pointer.getListNum()==ListNum)
@@ -360,7 +388,7 @@ public class ListArray
 	}
 	public int getTableSize(int ListNum)
 	{
-		List pointer=Begin;
+		Table pointer=Begin;
 		while (pointer!=null)
 		{
 			if (pointer.getListNum()==ListNum)
@@ -374,7 +402,7 @@ public class ListArray
 	
 	public int getWorkerNumber(int ListNum)
 	{
-		List pointer=Begin;
+		Table pointer=Begin;
 		while (pointer!=null)
 		{
 			if (pointer.getListNum()==ListNum)
@@ -388,7 +416,7 @@ public class ListArray
 	
 	public long getWorkerChatID(int ListNum)
 	{
-		List pointer=Begin;
+		Table pointer=Begin;
 		while (pointer!=null)
 		{
 			if (pointer.getListNum()==ListNum)
@@ -399,4 +427,18 @@ public class ListArray
 		}
 		return -1;
 	}
+
+	public Table getBegin() {
+		return Begin;
+	}
+
+	public void setBegin(Table begin) {
+		Begin = begin;
+	}
+
+	public ListArray getNext() {
+	    return this.getNext();
+    }
+
+
 }
