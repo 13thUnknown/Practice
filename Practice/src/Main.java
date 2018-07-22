@@ -29,6 +29,7 @@
  * .getBegin() Получение указателья на первый стол.
  * .hardAdd(int ListNum, long ChatID, int Number) Добавляет пользователя с данным ChatID, в данный стол, с данным номером.
  * .hardEnd() Завершает добавление из файла
+ * .hardAddList(int tableSize,int timer,int numberList) Добавляет стол с данными параметрами.
  * TODO
  * -Перевод кол-ва мест в столе в String
  * -Информация о столе
