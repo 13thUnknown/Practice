@@ -1,5 +1,5 @@
 
-public class List 
+public class Table 
 {
 	private int ListNum;
 	private Info Begin;
@@ -7,11 +7,12 @@ public class List
 	private Processor Worker;
 	private int timer;
 	private int Number;
+	private int MaxNumber;
 	private boolean enable;
 	private int TableSize;
-	private List next;
+	private Table next;
 	
-	List(int timer,int ListNum,int TableSize)
+	Table(int timer,int ListNum,int TableSize)
 	{
 		this.ListNum=ListNum;
 		this.Number=1;
@@ -19,6 +20,7 @@ public class List
 		this.Worker=new Processor(this.timer);
 		this.enable=true;
 		this.TableSize=TableSize;
+		this.MaxNumber=0;
 	}
 	
 	public void add(long ChatID)
@@ -50,6 +52,17 @@ public class List
 			End.setQueue(Prev.getQueue()+1);
 		}
 		Number++;
+	}
+	public void hardAdd(long ChatID, int Number) 
+	{
+		this.Number=Number;
+		if (MaxNumber<Number)
+			MaxNumber=Number;
+		this.add(ChatID);
+	}
+	public void hardEnd()
+	{
+		this.Number=this.MaxNumber+1;
 	}
 	public void out()
 	{
@@ -212,11 +225,11 @@ public class List
 		return enable;
 	}
 
-	public List getNext() {
+	public Table getNext() {
 		return next;
 	}
 
-	public void setNext(List next) {
+	public void setNext(Table next) {
 		this.next = next;
 	}
 
