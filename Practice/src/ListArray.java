@@ -28,6 +28,20 @@ public class ListArray
 			End=End.getNext();
 		}
 	}
+	public void hardAddList(int tableSize,int timer,int numberList)
+	{
+		Table NewList=new Table(timer,numberList,tableSize);
+		if (Begin==null&&End==null)
+		{
+			Begin = NewList;
+			End = NewList;	
+		}
+		else
+		{
+			End.setNext(NewList);
+			End=End.getNext();
+		}
+	}
 	public void fixList(Table pointer)
 	{
 		while (pointer!=null)
