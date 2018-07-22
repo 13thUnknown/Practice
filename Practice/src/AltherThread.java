@@ -1,4 +1,3 @@
-
 public class AltherThread extends Thread
 {
 	private ListArray Queue;
@@ -6,8 +5,7 @@ public class AltherThread extends Thread
 	AltherThread(ListArray Queue,int Timer)
 	{
 		this.Queue=Queue;
-		this.Timer=Timer;
-		
+		this.Timer=Timer;		
 	}
 	@Override
 	public void run()

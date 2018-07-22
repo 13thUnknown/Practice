@@ -9,7 +9,7 @@ public class List
 	private int Number;
 	private boolean enable;
 	private int TableSize;
-	private List next;
+	private List next;	
 	
 	List(int timer,int ListNum,int TableSize)
 	{
@@ -133,15 +133,17 @@ public class List
 	
 	public void checker() 
 	{
+		
 		if (Worker.isEmpty() && Begin!=null)
 		{
 			Worker.fill(Begin);
 			this.delete(Begin.getNumber());
+			
 		}
 		else if (Worker.getReserved() < System.currentTimeMillis() && Begin!=null)
 		{
-			Worker.fill(Begin);
-			this.delete(Begin.getNumber());
+			Worker.fill(Begin);					
+			this.delete(Begin.getNumber());			
 		}
 		else if ((Worker.getReserved() < System.currentTimeMillis()) && Begin==null)
 		{
@@ -153,7 +155,7 @@ public class List
 		if (Worker.isEmpty())
 			System.out.println("Worker is empty");
 		else
-			System.out.println("Worker under process น "+Worker.getNumber());
+			System.out.println("Worker under process ยน "+Worker.getNumber());
 		this.out();
 	}
 	public boolean workerIsEmpty()
@@ -180,6 +182,12 @@ public class List
 				pointer = pointer.getNext();
 		}
 		return -1;
+	}
+	public int getQueue()
+	{
+		if (End!=null)
+			return End.getQueue();
+		else return -1;
 	}
 	
 	public boolean userInQueue(long ChatID)
@@ -229,9 +237,49 @@ public class List
 	public void setTableSize(int tableSize) {
 		TableSize = tableSize;
 	}
-	public List getThis()
+	public boolean IsInProcessor(long ChatID)
 	{
-		return this;
+		return Worker.IsInProcessor(ChatID);
 	}
 	
+	public int getPriority(int AmountPeople)
+	{
+		return (TableSize-AmountPeople)*5+this.getQueue()+1;
+	}
+	
+	public long returnChatID(int Queue)
+	{
+		Info pointer=Begin;
+		while (pointer!=null)
+		{
+			if (pointer.getQueue()==Queue)
+			{
+				return pointer.getChatID();
+			}
+			pointer=pointer.getNext();
+		}
+		return -1;
+	}
+	
+	public int returnNumber(int Queue)
+	{
+		Info pointer=Begin;
+		while (pointer!=null)
+		{
+			if (pointer.getQueue()==Queue)
+			{
+				return pointer.getNumber();
+			}
+			pointer=pointer.getNext();
+		}
+		return -1;
+	}
+	public int getWorkerNumber()
+	{
+		return Worker.getNumber();
+	}
+	public long getWorkerChatID()
+	{
+		return Worker.getChatID();
+	}
 }

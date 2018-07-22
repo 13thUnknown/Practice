@@ -11,6 +11,7 @@ public class ListArray
 		this.Begin=null;
 		this.End=null;
 		this.timer=timer;
+		
 	}
 
 	public void addList(int tableSize)
@@ -28,6 +29,7 @@ public class ListArray
 			End=End.getNext();
 		}
 	}
+	
 	public void fixList(List pointer)
 	{
 		while (pointer!=null)
@@ -37,6 +39,7 @@ public class ListArray
 		}
 		
 	}
+	
 	public boolean deleteList(int ListNum)
 	{
 		List pointer=Begin;
@@ -72,6 +75,7 @@ public class ListArray
 		numberList++;
 		return false;
 	}
+	
 	public int numberList()
 	{
 		int i=0;
@@ -83,20 +87,33 @@ public class ListArray
 		}
 		return i;
 	}
+
 	public boolean add(int AmountPeople,long ChatID)
 	{
+		List PriorPointer=null;
 		List pointer=Begin;
-		if (this.userInQueue(ChatID)==-1)
+		int priority=-1;
+		if (this.userInQueue(ChatID)==-1 && this.userInProcessor(ChatID)==-1)
 		{
 			while (pointer != null) 
 			{
 				if (pointer.getTableSize() >= AmountPeople && pointer.accessStatus()==true) 
 				{
-					pointer.add(ChatID);
-					return true;
+					if (priority==-1)
+					{
+						priority=pointer.getPriority(AmountPeople);
+						PriorPointer=pointer;
+					}
+					if (priority>pointer.getPriority(AmountPeople))
+					{
+						priority=pointer.getPriority(AmountPeople);
+						PriorPointer=pointer;
+					}
 				}
 				pointer = pointer.getNext();
 			}
+			PriorPointer.add(ChatID);
+			return true;
 		}
 		return false;
 	}
@@ -128,6 +145,7 @@ public class ListArray
 			pointer=pointer.getNext();
 		}
 	}
+	
 	public void delete(int numberList, long ChatID)
 	{
 		List pointer=Begin;
@@ -151,6 +169,7 @@ public class ListArray
 			pointer=pointer.getNext();
 		}
 	}
+	
 	public void info(int numberList)
 	{
 		List pointer=Begin;
@@ -175,7 +194,7 @@ public class ListArray
 			}
 			pointer=pointer.getNext();
 		}
-		System.out.println("Î÷åðåäü ñ äàííûì íîìåðîì íå íàéäåíà.");
+		System.out.println("ÃŽÃ·Ã¥Ã°Ã¥Ã¤Ã¼ Ã± Ã¤Ã Ã­Ã­Ã»Ã¬ Ã­Ã®Ã¬Ã¥Ã°Ã®Ã¬ Ã­Ã¥ Ã­Ã Ã©Ã¤Ã¥Ã­Ã .");
 		return false;
 	}
 	
@@ -256,6 +275,125 @@ public class ListArray
 			if (pointer.userInQueue(ChatID)==true)
 			{
 				return pointer.getListNum();
+			}
+			pointer=pointer.getNext();
+		}
+		return -1;
+	}
+	public int userInProcessor(long ChatID)
+	{
+		List pointer=Begin;
+		while (pointer!=null)
+		{
+			if (pointer.IsInProcessor(ChatID)==true)
+			{
+				return pointer.getListNum();
+			}
+			pointer=pointer.getNext();
+		}
+		return -1;
+	}
+	public int getQueue(int ListNum)
+	{
+		List pointer=Begin;
+		while (pointer!=null)
+		{
+			if (pointer.getListNum()==ListNum)
+			{
+				return pointer.getQueue();
+			}
+			pointer=pointer.getNext();
+		}
+		return -1;
+	}
+	public int getMaxTableSize()
+	{
+		int max=-1;
+		List pointer=Begin;
+		while (pointer!=null)
+		{
+			if(pointer.getTableSize()>max)
+				max=pointer.getTableSize();
+			pointer=pointer.getNext();
+		}
+		return max;
+	}
+	
+	public long returnChatID(int Queue,int ListNum)
+	{
+		try {
+			AltherThread.sleep(50);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		List pointer=Begin;
+		while (pointer!=null)
+		{
+			if (pointer.getListNum()==ListNum)
+			{
+				return pointer.returnChatID(Queue);
+			}
+			pointer=pointer.getNext();
+		}
+		return -1;
+	}
+	
+	public int returnNumber(int Queue,int ListNum)
+	{
+		try {
+			AltherThread.sleep(50);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		List pointer=Begin;
+		while (pointer!=null)
+		{
+			if (pointer.getListNum()==ListNum)
+			{
+				return pointer.returnNumber(Queue);
+			}
+			pointer=pointer.getNext();
+		}
+		return -1;
+	}
+	public int getTableSize(int ListNum)
+	{
+		List pointer=Begin;
+		while (pointer!=null)
+		{
+			if (pointer.getListNum()==ListNum)
+			{
+				return pointer.getTableSize();
+			}
+			pointer=pointer.getNext();
+		}
+		return -1;
+	}
+	
+	public int getWorkerNumber(int ListNum)
+	{
+		List pointer=Begin;
+		while (pointer!=null)
+		{
+			if (pointer.getListNum()==ListNum)
+			{
+				return pointer.getWorkerNumber();
+			}
+			pointer=pointer.getNext();
+		}
+		return -1;
+	}
+	
+	public long getWorkerChatID(int ListNum)
+	{
+		List pointer=Begin;
+		while (pointer!=null)
+		{
+			if (pointer.getListNum()==ListNum)
+			{
+				return pointer.getWorkerChatID();
 			}
 			pointer=pointer.getNext();
 		}

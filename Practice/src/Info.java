@@ -1,4 +1,5 @@
 
+
 public class Info 
 {
 	private int Number;
@@ -12,7 +13,7 @@ public class Info
 		Queue=-1;
 		next=null;
 		prev=null;
-		ChatID=0;
+		ChatID=0;		
 	}
 	
 	public Info getPrev() {

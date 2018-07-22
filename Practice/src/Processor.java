@@ -37,6 +37,12 @@ public class Processor
 		
 	}
 	
+	public long getChatID() {
+		return ChatID;
+	}
+	public void setChatID(long chatID) {
+		ChatID = chatID;
+	}
 	public int getTimer() {
 		return timer;
 	}
@@ -70,8 +76,16 @@ public class Processor
 			this.reset();
 		else
 		{
-			System.out.println("Неверный номер телефона!");
+			System.out.println("ГЌГҐГўГҐГ°Г­Г»Г© Г­Г®Г¬ГҐГ° ГІГҐГ«ГҐГґГ®Г­Г !");
 		}
+	}
+	
+	public boolean IsInProcessor(long ChatID)
+	{
+		if (this.ChatID==ChatID)
+			return true;
+		else
+			return false;
 	}
 	
 
