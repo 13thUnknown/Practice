@@ -16,7 +16,6 @@ public class Table
 	{
 		this.ListNum=ListNum;
 		this.Number=1;
-		
 		this.timer=timer;
 		this.Worker=new Processor(this.timer);
 		this.enable=true;
@@ -88,9 +87,23 @@ public class Table
 		Info pointer=Begin;
 		if (Begin.getNumber()==Number)
 		{
+			if (End==Begin)
+			{
+				Begin=null;
+				End=null;
+			}
+			{
+			if (Begin!=null)
+			{
 			Begin=Begin.getNext();
-			pointer.setNext(null);
 			this.fixQueue(Begin);
+			}
+			else 
+			{
+				Begin=null;
+			End=null;
+			}
+			}
 			return;
 		}
 		while (pointer!=null)
@@ -167,7 +180,7 @@ public class Table
 		if (Worker.isEmpty())
 			System.out.println("Worker is empty");
 		else
-			System.out.println("Worker under process น "+Worker.getNumber());
+			System.out.println("Worker under process ยน "+Worker.getNumber());
 		this.out();
 	}
 	public boolean workerIsEmpty()
@@ -185,10 +198,9 @@ public class Table
 	public int outQueue(long ChatID)
 	{
 		Info pointer=Begin;
-		Number=findNumber(ChatID);
 		while (pointer!=null) 
 		{
-			if (pointer.getNumber() == Number)
+			if (pointer.getChatID() == ChatID)
 				return pointer.getQueue();
 			else
 				pointer = pointer.getNext();
@@ -294,4 +306,9 @@ public class Table
 	{
 		return Worker.getChatID();
 	}
+	public Info getBegin() {
+		return this.Begin;
+	}
+	
+
 }
