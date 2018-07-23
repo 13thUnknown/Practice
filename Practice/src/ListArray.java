@@ -5,12 +5,20 @@ public class ListArray
 	private Table Begin;
 	private Table End;
 	private int timer;
+	//FileWork file;
 	ListArray(int timer)
 	{
 		this.numberList=0;
 		this.Begin=null;
 		this.End=null;
-		this.timer=timer;
+		this.timer=timer;		
+//		try {
+//			file=new FileWork();
+//			file.ReadFromExcel();
+//		} catch (Exception e) {
+//			// TODO Автоматически созданный блок catch
+//			e.printStackTrace();
+//		}	
 	}
 
 	public void addList(int tableSize)
@@ -27,6 +35,14 @@ public class ListArray
 			End.setNext(NewList);
 			End=End.getNext();
 		}
+		
+//		try {
+//			this.file.WriteIntoExcel(this);;	
+//		}
+//		catch (Exception e)
+//		{
+//			System.out.println("Пшел на при создании");
+//		}
 	}
 	public void hardAddList(int tableSize,int timer,int numberList)
 	{
