@@ -22,7 +22,7 @@ public class Example extends TelegramLongPollingBot {
 	public static List<Long> admins = new ArrayList<>();
 	public static List<Long> isitadmin = new ArrayList<>();
 	public static int Timer=60000;
-	public static  ListArray Queue=new ListArray(Timer);
+	public static ListArray Queue=new ListArray(Timer);
 	public static AltherThread NewThread = new AltherThread(Queue, 1000);
 	public static List<Long> IDs = new ArrayList<>();
 	public static List<Integer> commands = new ArrayList<>();
@@ -180,7 +180,7 @@ public class Example extends TelegramLongPollingBot {
                 case "Посмотреть позицию":
                 	 if (Queue.userInQueue(ChatID) != -1) 
                 	 {
-                		 int kol = Queue.outQueue(Queue.userInQueue(ChatID), ChatID);
+                		 int kol = Queue.outQueue(Queue.userInQueue(ChatID), ChatID);                		
           			     if (kol == -1)
           			    	 kol = 0;         			     
           			   
@@ -277,6 +277,10 @@ public class Example extends TelegramLongPollingBot {
                case"/tablelist":
             	   if (admins.contains(ChatID)) 
             	   {
+            		   if (Queue.numberList() == -1 || Queue.numberList() == 0) {
+            			   sendMsg(message,"Столы отсутствуют", 0); 
+            		   }
+            		   
             		   for (int i=1;i< Queue.numberList()+1; i++) {
             			   int kol = Queue.getQueue(i);
             			   		if (kol == -1)
@@ -381,32 +385,29 @@ public class Example extends TelegramLongPollingBot {
         	String call_data = update.getCallbackQuery().getData();
             ChatID = update.getCallbackQuery().getMessage().getChatId();
             number = Integer.parseInt(call_data); 
-            
-            if (getCommand(ChatID) == 3)
-            {           	
+            int kol;
+            switch(getCommand(ChatID)) {
+            case 3:
             	Queue.addList(number);
             	System.out.println(number);
             	sendMsg(ChatID,"Стол добавлен!", 0);
             	setCommand(ChatID,-1);
-            }
-            if (getCommand(ChatID) == 4)
-            {            	 
-            	 Queue.deleteList(number);
-            	 sendMsg(ChatID,"Стол удален!", 0);
-            	 setCommand(ChatID,-1);
-            }
-            if (getCommand(ChatID) == 5)
-            {            	
-            	 Queue.accessSwitch(number);
-            	 if (Queue.accessStatus(number) == true)
-            	 sendMsg(ChatID,"Доступ к столу с номером " + call_data +" открыт!" , 0);
-            	 else
-            		 sendMsg(ChatID,"Доступ к столу с номером " + call_data +" закрыт!" , 0);
-            	 setCommand(ChatID,-1);
-            }
-            if (getCommand(ChatID) == 6)
-            {    
-            	int kol;
+            	break;
+            case 4:
+            	Queue.deleteList(number);
+           	 	sendMsg(ChatID,"Стол удален!", 0);
+           	 	setCommand(ChatID,-1);
+            	break;
+            case 5:
+            	Queue.accessSwitch(number);
+           	 	if (Queue.accessStatus(number) == true)
+           	 		sendMsg(ChatID,"Доступ к столу с номером " + call_data +" открыт!" , 0);
+           	 	else
+           	 			sendMsg(ChatID,"Доступ к столу с номером " + call_data +" закрыт!" , 0);
+           	 	setCommand(ChatID,-1);
+            	break;
+            case 6:
+            	
             	if ((Queue.getQueue(number) == -1))
             			kol = 0;
             	else
@@ -417,9 +418,8 @@ public class Example extends TelegramLongPollingBot {
          			   		+ "Кол-во мест - "+ String.valueOf(Queue.getTableSize(number))+"; "
          			   		+ "Доступ к столу - "+ String.valueOf(Queue.accessStatus(number)) +".", 0); 
             	setCommand(ChatID,-1);
-            }
-            if (getCommand(ChatID) == 7)
-            {
+            	break;
+            case 7:
             	if (Queue.getWorkerChatID(number) != 0) 
             	{
             		sendMsg(ChatID,"Выполняемый процесс в столе номер " + call_data+": "
@@ -430,36 +430,34 @@ public class Example extends TelegramLongPollingBot {
             		sendMsg(ChatID,"Выполняемый процесс в столе номер " + call_data+": отсутствует", 0);
             	           	
             	setCommand(ChatID,-1);
-            }
-            if (getCommand(ChatID) == 8)
-            {  
+            	break;
+            case 8:
             	if (Queue.getQueue(number) != -1) 
             	{
 	            	sendMsg(ChatID,"Информация об очереди к столу " + call_data, 0);
-	            	for (int i=1; i< Queue.getQueue(number)+1; i++) {
+	            	int j = Queue.getQueue(number)+1;
+	            	for (int i=1; i< j; i++) {
 	            		sendMsg(ChatID,"Позиция #"+ 
 	                        	String.valueOf(i) +": ChatID - " + 
-	                        	String.valueOf(Queue.returnChatID(number, i)) +"; Номер талона - "+ 
-	                        	String.valueOf(Queue.returnNumber(number, i)) +".", 0);     
+	                        	String.valueOf(Queue.returnChatID(i, number)) +"; Номер талона - "+ 
+	                        	String.valueOf(Queue.returnNumber(i, number)) +".", 0);     
             	}	          
             	}
             	else
             		sendMsg(ChatID,"Очередь к столу " + call_data+" отсутствует", 0);
             	setCommand(ChatID,-1);
-            }
-            if (getCommand(ChatID) == 9)
-            {            	
+            	break;
+            case 9:
             	Queue.abort(number);
             	sendMsg(ChatID,"Выполняемый процесс в столе номер " + call_data +" прерван!", 0);
             	setCommand(ChatID,-1);
-            }           
-            if (getCommand(ChatID) == 12)
-            {
+            	break;
+            case 12:
             	Queue.add(number, ChatID);
             	sendMsg(ChatID,"Вы заняли очередь за стол с количеством мест - " + call_data, 1);
             	if (Queue.userInQueue(ChatID) != -1) 
            	 	{
-           		 int kol = Queue.outQueue(Queue.userInQueue(ChatID), ChatID);
+           		 kol = Queue.outQueue(Queue.userInQueue(ChatID), ChatID);
      			 if (kol == -1)
      			    	 kol = 0;         			     
      			   
@@ -473,19 +471,16 @@ public class Example extends TelegramLongPollingBot {
                	sendMsg(ChatID,"Ваша очередь уже подошла, пройдите к столу номер "+ String.valueOf(Queue.userInProcessor(ChatID)),1);
                }
             	setCommand(ChatID,-1);
-            }
-            if (getCommand(ChatID) == 0) 
-            {
+            	break;
+            default:
             	if (admins.contains(ChatID)) {
             		sendMsg(ChatID,"Нажатие кнопки не распознано, введите команду", 1);
             	}
             	else
             		sendMsg(ChatID,"Возникла непредвиденная ошибка, нажмите кнопку внизу экрана", 1);
-            	
-            }
-            
-        }
-        
+            	break;
+            }   
+        }        
         if (getCommand(ChatID) == -1) setCommand(ChatID,0);
     }
 	
@@ -498,6 +493,7 @@ public class Example extends TelegramLongPollingBot {
 			keyboard.add(Row(1,5));
 			keyboard.add(Row(6,10));
 		}
+		
 		if (mode == 1)
 		{			
 			if (Queue.getMaxTableSize() > 0)
@@ -516,7 +512,8 @@ public class Example extends TelegramLongPollingBot {
 		return inlinekeyboard;
 	}
 
-	public InlineKeyboardButton Button(int i){
+	public InlineKeyboardButton Button(int i)
+	{
 		InlineKeyboardButton button = new InlineKeyboardButton();
 		button.setText(String.valueOf(i));
 		button.setCallbackData(String.valueOf(i));
@@ -641,8 +638,7 @@ public class Example extends TelegramLongPollingBot {
 	    catch (TelegramApiException e) 
 	    {
 	        e.printStackTrace();
-	    }           
-	           
+	    }         
     }
 	
     public void sendMsg (Message message, String text, int mode) {
