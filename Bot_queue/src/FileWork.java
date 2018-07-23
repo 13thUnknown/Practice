@@ -1,9 +1,7 @@
-import org.apache.http.impl.io.SocketOutputBuffer;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -118,14 +116,16 @@ public class FileWork
     }
 
     public String ReadLogin () throws Exception {
-        HSSFWorkbook AdminBook = new HSSFWorkbook(new FileInputStream("fileName"));
+        @SuppressWarnings("resource")
+		HSSFWorkbook AdminBook = new HSSFWorkbook(new FileInputStream("fileName"));
         HSSFSheet sheet = AdminBook.getSheet("admin");
         HSSFRow row = sheet.getRow(0);
         HSSFCell Login = row.getCell(0);
         return Login.toString();
     }
     public String ReadPassword () throws Exception {
-        HSSFWorkbook AdminBook = new HSSFWorkbook(new FileInputStream("fileName"));
+        @SuppressWarnings("resource")
+		HSSFWorkbook AdminBook = new HSSFWorkbook(new FileInputStream("fileName"));
         HSSFSheet sheet = AdminBook.getSheet("admin");
         HSSFRow row = sheet.getRow(0);
         HSSFCell Password = row.getCell(1);
