@@ -17,6 +17,8 @@ public class ListArray
 	public void addList(int tableSize)
 	{
 		numberList++;
+		if (numberList==0)
+			numberList=1;
 		Table NewList=new Table(timer,numberList,tableSize);
 		if (Begin==null&&End==null)
 		{
@@ -76,9 +78,17 @@ public class ListArray
 		numberList--;
 		if (Begin.getListNum()==ListNum)
 		{
-			Begin=Begin.getNext();
-			pointer.setNext(null);
-			this.fixList(Begin);
+			if (End==Begin)
+			{
+				Begin=null;
+				End=null;
+			}
+			else
+			{
+				Begin=Begin.getNext();
+				pointer.setNext(null);
+				this.fixList(Begin);
+			}
 			try {
 				this.file.WriteIntoExcel(this.Begin);;	
 			}
