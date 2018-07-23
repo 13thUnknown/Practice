@@ -222,7 +222,7 @@ public class ListArray
 			}
 			pointer=pointer.getNext();
 		}
-		System.out.println("Очередь с данным номером не найдена.");
+		System.out.println("пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ.");
 		return false;
 	}
 	
@@ -435,5 +435,10 @@ public class ListArray
 	public void setBegin(Table begin) {
 		Begin = begin;
 	}
-	
+
+	public ListArray getNext() {
+	    return this.getNext();
+    }
+
+
 }
